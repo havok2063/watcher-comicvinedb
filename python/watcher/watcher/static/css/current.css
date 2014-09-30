@@ -1,0 +1,32 @@
+
+/* Current Page */
+
+.percam  
+{
+width:10%;
+}
+
+.progress-bar-b1 {
+  background-color: #87CEEB;
+}
+
+.progress-bar-b2 {
+  background-color: #9370DB;
+}
+
+.progress-bar-r1 {
+  background-color: #800000;
+}
+
+.progress-bar-r2 {
+  background-color: #FF8C00;
+}
+
+/* Search Page */
+
+
+
+/* Redux Status Page */
+.hiddenRow {
+	padding: 0 !important;
+}

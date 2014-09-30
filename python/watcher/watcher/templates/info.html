@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+{% from 'macros.html' import namelist %}
+
+{% block head %}
+
+{% endblock head %}
+
+{% block body %}
+
+{# character name search #}
+<div class='well'>
+	<div class='row'>
+	    <form class="form-horizontal container-fluid" role="form">
+		<div class="search form-group" id="character">
+  			{# Name Search #}
+  			<div class="name form-group">
+  				<label for="onename" class="col-sm-2 control-label">Search by character name: </label>
+  				<div class="input-group col-sm-2">
+  					<input type="text" name="name" class="form-control">
+  				</div>
+  			</div>	
+  		</div>
+  		</form>		
+	</div>
+</div>
+
+{# character is in the database #}
+
+{% if character is not none %}
+	<div class='well'>
+		<div class='row'>
+			<h1>{{character.name}}</h1>
+			<h4>{{character.deck}}</h4>
+		</div>
+	</div>
+	
+	{# Description #}
+	<div class='well' id='descrip'>
+		<div class='row' data-toggle="collapse" data-parent='#descrip' href="#onedesc">
+			<h2>Description</h2>
+		</div>
+		
+		<div id='onedesc' class='panel-collapse collapse out'>
+			<div class='panel-body'>
+				<div class='row'><p>{{character.description|safe}}</p></div>
+			</div>
+		</div>
+	</div>
+	
+
+	
+	{# Info and Stats #}
+	<div class='well'>
+		<div class='row'>
+			<h2>Info</h2>
+		</div>
+		<div class='row'>
+			<div class='col-sm-2'>
+				<h4>Number of Issues: </h4>
+				<h4>First Appearance: </h4>
+				<h4>Issue/Time Ratio: </h4>
+				<h4># of Deaths: </h4>
+				{% if character.issues_died_in|count > 0 %}
+					<h4>Issues Died In:</h4>
+				{% endif %}
+				<h4>Origin: </h4>
+			</div>
+			<div class='col-sm-2'>
+				<h4>{{character.issue_count}}</h4>	
+				<h4>{{character.first_issue}}</h4>
+				<h4>{{ratio|round(2)}}</h4>
+				<h4>{{character.issues_died_in|count}}</h4>
+				{% if character.issues_died_in|count > 0 %}
+					{% for issue in character.issues_died_in %}
+						<h4>{{issue}}</h4>
+					{% endfor %}
+				{% endif %}
+				<h4>{{character.origin.name}}</h4>
+			</div>
+		</div>
+	</div>
+	
+	{# List of Associates and Enemies #}
+	<div class='well' style='background-color:rgba(245,245,245,0.2)'>
+	<div class='row'><h2>Associations</h2></div>
+	<div class='row'>
+		{{ namelist('Friends',character.friends) }}
+		{{ namelist('Enemies',character.enemies) }}
+		{{ namelist('Teams',character.teams) }}
+		{{ namelist('Team Friends',character.teamFriends()) }}
+		{{ namelist('Team Enemies',character.teamEnemies()) }}
+	</div>
+	</div>
+{% else %}
+	{# No character in database #}
+	
+	{% if name is not none %}
+		<div class='well'>
+			<h1> No character found with that name! </h1>
+		</div>
+	{% endif %}
+{% endif %}
+	
+{% endblock body %}

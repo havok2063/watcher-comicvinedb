@@ -1,0 +1,25 @@
+
+{# MACROS for Watcher #}
+
+{% macro namelist(name, list) %}
+
+    {% if list is not none %}
+		<div class='col-sm-2'>
+			<div class='well'>
+				<h2>{{name}}</h2>
+				{% for item in list %}
+					<h4>{{item.name}}</h4>
+				{% endfor %}
+			</div>
+		</div>
+	{% else %}
+		<div class='col-sm-2'>
+			<div class='well'>
+				<h2>{{name}}</h2>
+				<h3>No {{name|lower}}</h3>
+			</div>
+		</div>	
+	{% endif %}
+
+
+{% endmacro %}

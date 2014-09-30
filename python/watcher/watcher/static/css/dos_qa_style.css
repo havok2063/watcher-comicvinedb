@@ -1,0 +1,40 @@
+/*------------------------------
+=BASIC SETUP
+--------------------------------*/
+
+/*Makeshift CSS Reset */
+{margin: 0; padding: 0;}
+
+/*Tell the browser to render HTML5 elements as blocks */
+header, figure, footer, hgroup, menu, section, aside, nav, article {display: block;}
+body {margin: 0 auto; padding: 22px 0; width:90%; height:100%; font: 13px/22px Helvetica, Arial, sans-serif; background: #FFFFFF;}
+h1 {font-size: 28px; line-height: 44px; padding: 22px 0;}
+h2 {font-size: 28px; line-height: 44px; padding: 22px 0;}
+h3 {font-size: 18px; line-height: 22px; padding: 11px 0;}
+p { padding-bottom: 22px;}
+
+
+/*--------------------
+=HEADER
+---------------------*/
+
+/*--------------------
+=MAIN
+---------------------*/
+#top {height:110px;}
+.logoImage {float:left; width:20%; margin:0 20px 0 0;}
+.Images {position:absolute; width:3072; height:2048;}
+.Collage {position:relative; top:300px;}
+#links {position:absolute; top:300px; height:100%;}
+
+/*--------------------
+=FOOTER
+---------------------*/
+footer {position: absolute; bottom:0; left:0; width:100%;}
+footer div {display: table; margin: 0 auto; padding: 0 0; width: 100%; padding: 0 22px;}
+
+
+
+
+
+
