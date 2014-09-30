@@ -40,17 +40,47 @@ class Character(Base):
     def teamFriends(self):
         
         session = Session.object_session(self)
-        try: teamlist = [session.query(Team).filter_by(id=team).one() for team in self.team_friends]
-        except TypeError: teamlist = None
-        return teamlist
+        teamlist = []
+        for team in self.team_friends:
+            try: team = session.query(Team).filter_by(id=team).one()
+            except TypeError: team = None
+            except sqlalchemy.orm.exc.NoResultFound: team = None
+            teamlist.append(team)
+        return teamlist   
 
     def teamEnemies(self):
         
         session = Session.object_session(self)
-        try: teamlist = [session.query(Team).filter_by(id=team).one() for team in self.team_enemies]
-        except TypeError: teamlist = None
+        teamlist = []
+        for team in self.team_enemies:
+            try: team = session.query(Team).filter_by(id=team).one()
+            except TypeError: team = None
+            except sqlalchemy.orm.exc.NoResultFound: team = None
+            teamlist.append(team)
         return teamlist        
-                          
+
+    def Friends(self):
+        
+        session = Session.object_session(self)
+        friends = []
+        for friend in self.friends:
+            try: friend = session.query(Character).filter_by(id=friend).one()
+            except TypeError: friend = None
+            except sqlalchemy.orm.exc.NoResultFound: friend = None
+            friends.append(friend)
+        return friends   
+
+    def Enemies(self):
+        
+        session = Session.object_session(self)
+        enemies = []
+        for team in self.team_enemies:
+            try: team = session.query(Character).filter_by(id=enemy).one()
+            except TypeError: enemy = None
+            except sqlalchemy.orm.exc.NoResultFound: enemy = None
+            enemies.append(enemy)
+        return enemies     
+                                  
 class CharacterToTeam(Base):
     __tablename__ = 'character_to_team'
     __table_args__ = {'autoload' : True, 'schema' : 'comicvinedb'}
