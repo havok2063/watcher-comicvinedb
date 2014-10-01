@@ -1,9 +1,14 @@
 {% extends "layout.html" %}
+{% set active_page = active_page|default("info") %}
 {% from 'macros.html' import namelist %}
 
 {% block head %}
-
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/index.css')}}">
 {% endblock head %}
+
+{% block code %}
+	{{js|safe}}
+{% endblock code %}
 
 {% block body %}
 
@@ -82,14 +87,19 @@
 	
 	{# List of Associates and Enemies #}
 	<div class='well' style='background-color:rgba(245,245,245,0.2)'>
-	<div class='row'><h2>Associations</h2></div>
-	<div class='row'>
-		{{ namelist('Friends',character.friends) }}
-		{{ namelist('Enemies',character.enemies) }}
-		{{ namelist('Teams',character.teams) }}
-		{{ namelist('Team Friends',character.teamFriends()) }}
-		{{ namelist('Team Enemies',character.teamEnemies()) }}
+		<div class='row'><h2>Associations</h2></div>
+		<div class='row'>
+			{{ namelist('Friends',character.friends) }}
+			{{ namelist('Enemies',character.enemies) }}
+			{{ namelist('Teams',character.teams) }}
+			{{ namelist('Team Friends',character.teamFriends()) }}
+			{{ namelist('Team Enemies',character.teamEnemies()) }}
+		</div>
 	</div>
+	
+	{# Power Tree #}
+	<div class='well' id='powers'>
+		<h2>Powers</h2>
 	</div>
 {% else %}
 	{# No character in database #}
