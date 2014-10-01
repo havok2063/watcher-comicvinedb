@@ -17,7 +17,7 @@ _author_ = 'Brian Cherinka'
 
 class addCharacterToDB:
 
-    def __init__(self, name=None,quiet=False, console=None, key='d4fe17508ca365e7b3678411f5f8fc0db7594963',
+    def __init__(self, name=None,quiet=False, console=None, key=None,
         limit=10, range=None, sleeptime=5, reverse=False):        
         ''' initialize '''
         
@@ -31,6 +31,9 @@ class addCharacterToDB:
         self.reverse = reverse
         if console: self.args = self.setArgs()
         if self.key: pycomicvine.api_key = self.key
+        else: 
+            print('Error: No API key set')
+            return
         
         # Start session 
         self.session = db.Session()
@@ -47,13 +50,15 @@ class addCharacterToDB:
         ''' parse command line arguments '''
         
         parser = argparse.ArgumentParser(prog='addCharacterToDB', usage='%(prog)s [options]')
-        parser.add_argument('-k', '--key', type=str, help='api_key to use for database', default='d4fe17508ca365e7b3678411f5f8fc0db7594963', required=True)
+        parser.add_argument('-k', '--key', type=str, help='api_key to use for database', default=None, required=True)
         parser.add_argument('-q', '--quiet', action='store_true', help='turn off verbosity', default=False)
         parser.add_argument('-n', '--name', type=str, help='character name to add', default=None)
         parser.add_argument('-l', '--limit', type=int, help='limit of character loop', default=10)
         parser.add_argument('-r', '--range', type=str, help='range of character ids to search over', default=None)
         
         self.arg = parser.parse_args()
+
+        if not self.arg.key: parser.error('No API key set.  Please set it.')
         
         if self.key == None: self.key = self.arg.key
         if self.quiet == None: self.quiet = self.arg.quiet
